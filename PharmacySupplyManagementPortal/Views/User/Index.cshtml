@@ -1,0 +1,311 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">PMSM</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <span style="position: absolute; right: 20px; color: white; text-transform: capitalize" class="user-name"><i class="fas fa-user"></i>&nbsp; @ViewBag.UserName</span>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Dashboard</div>
+                        <a class="nav-link mainPage" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <a class="nav-link repSchedule" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
+                            Schedule Meeting
+                        </a>
+                        <a class="nav-link medicineDemand" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-medical"></i></div>
+                            Supply Medicine
+                        </a>
+
+                        <a asp-area="" class="nav-link" asp-controller="User" asp-action="Logout">
+                            <div class="sb-nav-link-icon"><i class="fas fa-power-off"></i></div>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as: @ViewBag.UserName</div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <h1 class="mt-4"></h1>
+
+                    <section id="mainPage">
+                        <img src="~/images/main.jpg" style="width:100%; height: 80vh" />
+                    </section>
+
+                    <section id="RepSchedule" style="display: none">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <i class="fas fa-table mr-1"></i>
+                                        Representative Schedule
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="spinner-border spinner text-info" role="status" style="display: none;">
+                                            <span class="visually-hidden"></span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <form id="repScheduleForm">
+                                            <input onfocus="(this.type='date')" type="date" name="ScheduleStartDate" class="form-control col-md-7 input-date-rep" placeholder="Enter starting date for Shedules" />
+                                        </form>
+                                    </div>
+                                 </div>        
+                            </div>
+                            <div class="card-body">
+                                <span class="repMessage text-danger"></span>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered first table-hover" style="display: none" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Representative Name</th>
+                                                <th>Doctor Name</th>
+                                                <th>Treating Ailment</th>
+                                                <th>Medicine Name</th>
+                                                <th>Meeting Slot</th>
+                                                <th>Meeting Date</th>
+                                                <th>Doctor Contact Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="repTableBody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="medicineDemand" style="display: none">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Medicine Demand
+                            </div>
+                            <div class="card-body">
+                                <a href="#" class="text-success view-demand">
+                                    View Medicines
+                                    <span class="spinner-border spinner-one text-info" role="status" style="display: none; float: right">
+                                        <span class="visually-hidden"></span>
+                                    </span>
+                                </a><br />
+                                <br />
+                                <div class="table-responsive">
+                                    <span class="mdResult text-danger"></span>
+                                    <table class=" table demandTable table-hover" style="display: none">
+                                        <thead>
+                                            <tr>
+                                                <th>Medicine Name</th>
+                                                <th>Demand Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="demandTableBody"></tbody>
+                                        <caption><button class="btn btn-success" onclick="demadMedicine()">Demand</button></caption>
+                                    </table>
+                                    <table class="table table-bordered demandTableTwo table-hover" id="dataTable" width="100%" cellspacing="0" style="display: none">
+                                        <thead>
+                                            <tr>
+                                                <th>Pharmacy Name</th>
+                                                <th>Medicine Name</th>
+                                                <th>Supply Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="demandTableTwoBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Pharmacy Medicine Supply Portal 2020</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>  
+
+    <script src="~/assets/demo/datatables-demo.js"></script>
+</body>
+</html>
+<script>
+    $(".repSchedule").on("click", function () {
+        $("#RepSchedule").show()
+        $("#medicineDemand").hide()
+        $("#mainPage").hide()
+    })
+
+
+    $(".medicineDemand").on("click", function () {
+        $("#RepSchedule").hide();
+        $("#medicineDemand").show()
+        $("#mainPage").hide()
+    })
+
+    $(".mainPage").on("click", function () {
+        $("#RepSchedule").hide();
+        $("#medicineDemand").hide()
+        $("#mainPage").show()
+    })
+
+    $(".nav-link").on("click", function () {
+        $(".active").removeClass("active")
+        $(this).addClass("active")
+
+        
+    })
+</script>
+<script>
+    $('.input-date-rep').on("change", function (e) {
+        e.preventDefault();
+        $(".spinner").show();
+        $(".repMessage").text("")
+        $.ajax({
+            type: "GET",
+            url: "../RepSchedule/Schedule",
+            data: $("#repScheduleForm").serialize(),
+            success: function (data) {
+                $(".spinner").hide();
+                console.log(data)
+                if (typeof data == "string") {
+                    $(".first").hide()
+                    $(".repMessage").text(data)
+                }
+                else {
+                    var raw = ""
+                    data.forEach(function (i) {
+                        var rawDate = String(new Date(i["dateOfMetting"])).substring(0, 15)
+                        var li = rawDate.split(" ")
+                        var date = `${li[2]}-${li[1]}-${li[3]}`
+                        raw += "<tr><td>" + i["name"] + "</td><td>" + i["docterName"] + "</td><td>" + i["treatmentAilment"] + "</td><td>" + i["medicine"] + "</td><td>" + i["mettingSlot"] + "</td><td>" + date + "</td><td>" + i["docterContactNumber"] + "</td></tr>"
+                    })
+                    $("#repTableBody").html(raw)
+                    $(".first").show()
+
+                }
+                
+            }
+        })
+    })
+
+
+    $(".view-demand").on("click", function () {
+        $(".result").text("")
+        $(".mdResult").text("")
+        $.ajax({
+            type: "GET",
+            url: "../MedicineDemandSupply/Index",
+            success: function (data) {
+                console.log(data)
+                if (typeof data == "string") {
+                    $(".result").text(data)
+                    $(".demandTable").hide()
+                    $(".demandTableTwo").hide()
+                }
+                else {
+                    var raw = ""
+                    data.forEach(function (i) {
+                        raw = raw + "<tr><td><input type='text' name='medicine'  class='form-control medicineName' value='" + i["medicine"] + "' readonly></td><td><input type='number' min='0' class='form-control medicineCount' name='demandCount' value='" + i["demandCount"] + "'/></td>";
+                    })
+                    raw = raw + "";
+                    $(".demandTableBody").html(raw)
+                    $(".demandTable").show()
+                    $(".demandTableTwo").hide()
+                }
+
+            }
+        })
+    })
+
+
+    function demadMedicine() {
+        $(".spinner-one").show()
+        $(".mdResult").text("")
+        var names = []
+        var count = []
+        $(".medicineName").each(function () {
+            names.push($(this).val())
+        })
+        $(".medicineCount").each(function () {
+            count.push($(this).val())
+        })
+        var li = []
+       
+        for (var i = 0; i < names.length; i++) {
+            var temp = {}
+            temp["demandCount"] = count[i]
+            temp["medicine"] = names[i]
+            li.push(temp)
+        }
+        console.log(li)
+        $.ajax({
+            type: "POST",
+            url: "../MedicineDemandSupply/Index",
+            data: {demands:li},
+            success: function (data) {
+                $(".spinner-one").hide()
+                console.log(data)
+                if (typeof data == "string") {
+                    $(".mdResult").text(data)
+                    $(".demandTable").hide()
+                    $(".demandTableTwo").hide()
+                }
+                else {
+                    console.log(data)
+                    var raw = ""
+                    data.forEach(function (i) {
+                        raw = raw + "<tr><td>" + i["pharmacyName"] + "</td><td>" + i["medicineName"] + "</td><td>" + i["supplyCount"] + "</td></tr>";
+                    })
+                    raw = raw + "";
+                    $(".demandTable").hide()
+                    $(".demandTableTwo").show()
+                    $(".demandTableTwoBody").html(raw)
+                }
+
+            }
+        })
+    }
+</script>

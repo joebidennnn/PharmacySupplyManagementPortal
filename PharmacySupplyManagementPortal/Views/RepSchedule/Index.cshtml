@@ -1,0 +1,17 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    ---for taking date
+*@
+@{
+}
+<form asp-action="Schedule" asp-controller="RepSchedule" method="Post">
+    <div asp-validation-summary="ModelOnly" class="text-danger center_div"></div>
+    <div class="form-group center_div">
+        <label class="control-label center_div">Schedule Meeting Date:</label>
+        <input onfocus="(this.type='date')" type="date" name="ScheduleStartDate" class="form-control col-md-7" placeholder="Enter starting date for Shedules" />
+        @*<span asp-validation-for="DateOfExpiry" class="text-danger center_div"></span>*@
+    </div>
+    <div class="form-group" id="btn-create">
+        <input type="submit" value="Show Schedule" class="btn btn-primary" />
+    </div>
+</form>
