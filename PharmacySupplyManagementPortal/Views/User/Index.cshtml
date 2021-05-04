@@ -323,3 +323,14 @@
         })
     }
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            if (document.URL.indexOf("#") == -1) {
+                url = document.URL + "#loaded";
+                location = "#loaded";
+                location.reload(true);
+            }
+        }, 100)
+    });
+</script>
