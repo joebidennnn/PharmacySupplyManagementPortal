@@ -20,10 +20,11 @@ namespace PharmacySupplyManagementPortal.Services
                 string startDate = ScheduleStartDate.ToString("MM-dd-yyyy");
                 List<RepSchedule> ScheduleList = new List<RepSchedule>();
                 string apiResponse;
+                string url = "https://medicinerepresentativeschedule.azurewebsites.net/api/repschedule?ScheduleStartDate=";
                 using (var httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token);
-                    var response = await httpClient.GetAsync("https://localhost:44339/api/RepSchedule?ScheduleStartDate=" + startDate);
+                    var response = await httpClient.GetAsync(url + startDate);
                     if (response.IsSuccessStatusCode)
                     {
                         apiResponse = await response.Content.ReadAsStringAsync();

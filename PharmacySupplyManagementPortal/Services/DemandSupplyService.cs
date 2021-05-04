@@ -24,7 +24,7 @@ namespace PharmacySupplyManagementPortal.Services
                 httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", token);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(demands), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("https://localhost:44386/api/PharmacySupply", content);
+                var response = await httpClient.PostAsync("https://pharmacysupplymicroservice.azurewebsites.net/api/PharmacySupply", content);
                 _log.Info("response received");
                 return response;
             }
@@ -39,7 +39,7 @@ namespace PharmacySupplyManagementPortal.Services
         {
             try
             {
-                var response = await httpClient.GetAsync("https://localhost:44395/api/MedicineStockInformation");
+                var response = await httpClient.GetAsync("https://medicinestock.azurewebsites.net/api/MedicineStockInformation");
                 _log.Info("response received");
                 return response;
             }
@@ -73,7 +73,7 @@ namespace PharmacySupplyManagementPortal.Services
         {
             try
             {
-                var response = await httpClient.GetAsync("https://localhost:44395/api/MedicineStockInformation");
+                var response = await httpClient.GetAsync("https://medicinestock.azurewebsites.net/api/MedicineStockInformation");
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
