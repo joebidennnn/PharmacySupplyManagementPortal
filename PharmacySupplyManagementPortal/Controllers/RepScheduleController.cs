@@ -23,6 +23,10 @@ namespace PharmacySupplyManagementPortal.Controllers
             {
                 if (HttpContext.Session.GetString("token")!= null)
                 {
+                    if (ScheduleStartDate < DateTime.Now.AddDays(-1))
+                    {
+                        return Content("Invalid Date");
+                    }
                     string token = HttpContext.Session.GetString("token");
                     IEnumerable<RepSchedule> ScheduleList;
                     ScheduleList= await _repScheduleService.GetRepScheduleList(token, ScheduleStartDate);
@@ -34,7 +38,6 @@ namespace PharmacySupplyManagementPortal.Controllers
                     {
                         return Ok(ScheduleList);
                     }
-
                 }
                 else
                 {
@@ -44,7 +47,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             }catch(ArgumentException argumentexception)
             {
                 _log.Debug(argumentexception.Message);
-                return Content("invalid date");
+                return Content("Invalid date");
             }
             catch(Exception exception)
             {
