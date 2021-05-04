@@ -69,7 +69,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch(Exception exception)
             {
                 _log.Error(exception);
-                return RedirectToAction("Login", "User");
+                return Content("Api not running");
             }            
         }
     }

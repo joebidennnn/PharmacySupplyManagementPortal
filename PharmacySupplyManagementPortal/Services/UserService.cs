@@ -16,9 +16,10 @@ namespace PharmacySupplyManagementPortal.Services
         {
             try
             {
+                string url = "http://52.143.18.227/api/Authentication";
                 var httpClient = new HttpClient();
                 StringContent content = new StringContent(JsonConvert.SerializeObject(credentials), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("https://localhost:44375/api/Authentication", content);
+                var response = await httpClient.PostAsync(url, content);
                 return response;
             }
             catch (Exception e)

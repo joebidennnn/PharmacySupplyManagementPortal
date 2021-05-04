@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacySupplyManagementPortal", "PharmacySupplyManagementPortal\PharmacySupplyManagementPortal.csproj", "{514F7DAE-FC4B-4852-8F01-D06423F54418}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationService", "..\AuthorizationService\AuthorizationService\AuthorizationService.csproj", "{DFBD9CE1-6285-4A8D-A318-BA7B7BEF03F6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationServiceNUnitTest", "..\AuthorizationService\AuthorizationServiceNUnitTest\AuthorizationServiceNUnitTest.csproj", "{DDC91BA4-B146-4BC2-BF7E-8A372174A651}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{514F7DAE-FC4B-4852-8F01-D06423F54418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{514F7DAE-FC4B-4852-8F01-D06423F54418}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{514F7DAE-FC4B-4852-8F01-D06423F54418}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DFBD9CE1-6285-4A8D-A318-BA7B7BEF03F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFBD9CE1-6285-4A8D-A318-BA7B7BEF03F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFBD9CE1-6285-4A8D-A318-BA7B7BEF03F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFBD9CE1-6285-4A8D-A318-BA7B7BEF03F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDC91BA4-B146-4BC2-BF7E-8A372174A651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDC91BA4-B146-4BC2-BF7E-8A372174A651}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDC91BA4-B146-4BC2-BF7E-8A372174A651}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDC91BA4-B146-4BC2-BF7E-8A372174A651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
