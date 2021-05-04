@@ -17,26 +17,6 @@ namespace PharmacySupplyManagementPortal.Controllers
         {
             _repScheduleService = repScheduleService;
         }
-        public IActionResult Index()
-        {
-            try
-            {
-                if (HttpContext.Session.GetString("token") != null)
-                {
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("Login","User");
-                }
-                    
-            }
-            catch(Exception exception)
-            {
-                _log.Error(exception);
-                return RedirectToAction("Index", "User");
-            }
-        }
         public async Task<IActionResult> Schedule(DateTime ScheduleStartDate)
         {
             try
@@ -69,7 +49,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch(Exception exception)
             {
                 _log.Error(exception);
-                return Content("Api not running");
+                return Content("Server failed to respond");
             }            
         }
     }
