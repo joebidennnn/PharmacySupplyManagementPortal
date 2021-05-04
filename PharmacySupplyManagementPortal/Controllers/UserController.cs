@@ -26,6 +26,7 @@ namespace PharmacySupplyManagementPortal.Controllers
         {
             try
             {
+
                 if (HttpContext.Session.GetString("token") == null)
                 {
                     _log.Info("token not found");
@@ -70,7 +71,6 @@ namespace PharmacySupplyManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(User credentials)
         {
-            //return Content(credentials.UserName);
             try
             {
                 HttpResponseMessage response = await _userService.Login(credentials);
@@ -107,6 +107,7 @@ namespace PharmacySupplyManagementPortal.Controllers
                 _log.Info("Logging out user : " + HttpContext.Session.GetString("userName"));
                 HttpContext.Session.Remove("token");
                 HttpContext.Session.Remove("userName");
+                HttpContext.Session.Clear();
                 return View();
             }
             catch (Exception e)

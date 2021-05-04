@@ -41,7 +41,7 @@ namespace PharmacySupplyManagementPortal.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Login", "User");
+                    return Content("Unauthorized");
                 }
                     
             }catch(ArgumentException argumentexception)

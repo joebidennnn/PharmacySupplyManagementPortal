@@ -219,6 +219,9 @@
                 $(".spinner").hide();
                 console.log(data)
                 if (typeof data == "string") {
+                    if (data == "Unauthorized") {
+                        window.location.reload()
+                    }
                     $(".first").hide()
                     $(".repMessage").text(data)
                 }
@@ -238,6 +241,9 @@
             }
         })
     })
+    if (performance.navigation.type == 2){
+        location.reload(true);
+    }
 
 
     $(".view-demand").on("click", function () {
@@ -272,6 +278,9 @@
         })
     })
 
+    //    function preventBack() { window.history.forward(); }
+    //   setTimeout("preventBack()", 0);
+    //window.onunload = function () { null };
 
     function demadMedicine() {
         $(".demandMedicine-btn").hide()
