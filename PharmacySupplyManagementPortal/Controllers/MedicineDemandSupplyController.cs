@@ -82,14 +82,14 @@ namespace PharmacySupplyManagementPortal.Controllers
                     }
                     else
                     {
-                        return Content("Error");
+                        return Content("Server did not respond");
                     }
                 }
             }
             catch (Exception e)
             {
                 _log.Error("Error while getting demand list in DemandController for user : " + HttpContext.Session.GetString("userName") + " - " + e.Message);
-                return View("Error");
+                return Content("Server did not respond");
             }
         }
 
@@ -112,7 +112,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch (Exception e)
             {
                 _log.Error("Error in Demand Controller while displaying Supply for user : " + HttpContext.Session.GetString("userName") + " - " + e.Message);
-                return Content("Error");
+                return Content("Server error occurred");
             }
         }
     }

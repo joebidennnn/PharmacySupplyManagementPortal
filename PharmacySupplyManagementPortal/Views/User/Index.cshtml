@@ -72,20 +72,22 @@
                                         Representative Schedule
                                     </div>
                                     <div class="col-md-2">
-                                        <span class="spinner-border spinner text-info" role="status" style="display: none;">
-                                            <span class="visually-hidden"></span>
-                                        </span>
+
                                     </div>
                                     <div class="col-md-4">
                                         <form id="repScheduleForm">
                                             <input onfocus="(this.type='date')" type="date" name="ScheduleStartDate" class="form-control col-md-7 input-date-rep" placeholder="Enter starting date for Shedules" />
                                         </form>
                                     </div>
-                                 </div>        
+                                </div>
                             </div>
                             <div class="card-body">
                                 <span class="repMessage text-danger"></span>
                                 <div class="table-responsive">
+                                    <span class="spinner-border spinner text-info" role="status" style="display: none;">
+                                        <span class="visually-hidden"></span>
+                                    </span>
+
                                     <table class="table table-bordered first table-hover" style="display: none" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -99,7 +101,6 @@
                                             </tr>
                                         </thead>
                                         <tbody id="repTableBody">
-                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -114,12 +115,14 @@
                                 Medicine Demand
                             </div>
                             <div class="card-body">
-                                <a href="#" class="text-success view-demand">
+                                <a href="#" class="text-success view-demand" style="text-decoration: none">
                                     View Medicines
-                                    <span class="spinner-border spinner-one text-info" role="status" style="display: none; float: right">
-                                        <span class="visually-hidden"></span>
-                                    </span>
-                                </a><br />
+                                </a>
+                                <span class="spinner-border spinner-three text-info" role="status" style="display: none;">
+                                    <span class="visually-hidden"></span>
+                                </span>
+                                <br />
+
                                 <br />
                                 <div class="table-responsive">
                                     <span class="mdResult text-danger"></span>
@@ -131,7 +134,12 @@
                                             </tr>
                                         </thead>
                                         <tbody class="demandTableBody"></tbody>
-                                        <caption><button class="btn btn-success" onclick="demadMedicine()">Demand</button></caption>
+                                        <caption>
+                                            <span class="spinner-border spinner-one text-info" role="status" style="display: none;">
+                                                <span class="visually-hidden"></span>
+                                            </span>
+                                            <button class="btn btn-success demandMedicine-btn" onclick="demadMedicine()">Demand</button>
+                                        </caption>
                                     </table>
                                     <table class="table table-bordered demandTableTwo table-hover" id="dataTable" width="100%" cellspacing="0" style="display: none">
                                         <thead>
@@ -166,7 +174,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="~/assets/demo/datatables-demo.js"></script>
 </body>
@@ -195,7 +203,7 @@
         $(".active").removeClass("active")
         $(this).addClass("active")
 
-        
+
     })
 </script>
 <script>
@@ -226,7 +234,7 @@
                     $(".first").show()
 
                 }
-                
+
             }
         })
     })
@@ -235,10 +243,14 @@
     $(".view-demand").on("click", function () {
         $(".result").text("")
         $(".mdResult").text("")
+        $(".view-demand").hide()
+        $(".spinner-three").show()
         $.ajax({
             type: "GET",
             url: "../MedicineDemandSupply/Index",
             success: function (data) {
+                $(".view-demand").show()
+                $(".spinner-three").hide()
                 console.log(data)
                 if (typeof data == "string") {
                     $(".result").text(data)
@@ -262,6 +274,7 @@
 
 
     function demadMedicine() {
+        $(".demandMedicine-btn").hide()
         $(".spinner-one").show()
         $(".mdResult").text("")
         var names = []
@@ -273,7 +286,7 @@
             count.push($(this).val())
         })
         var li = []
-       
+
         for (var i = 0; i < names.length; i++) {
             var temp = {}
             temp["demandCount"] = count[i]
@@ -284,8 +297,9 @@
         $.ajax({
             type: "POST",
             url: "../MedicineDemandSupply/Index",
-            data: {demands:li},
+            data: { demands: li },
             success: function (data) {
+                $(".demandMedicine-btn").show()
                 $(".spinner-one").hide()
                 console.log(data)
                 if (typeof data == "string") {

@@ -24,7 +24,7 @@ namespace PharmacySupplyManagementPortal.Services
                 httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", token);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(demands), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("https://pharmacysupplymicroservice.azurewebsites.net/api/PharmacySupply", content);
+                var response = await httpClient.PostAsync("https://pharmacysupplymicroservice.azurewebsites.net/api/pharmacysupply", content);
                 _log.Info("response received");
                 return response;
             }

@@ -41,7 +41,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch (Exception e)
             {
                 _log.Error("Error in UserController - " + e.Message);
-                return View("Error");
+                return Content("Server didn't respond");
             }
         }
         public IActionResult Login()
@@ -62,7 +62,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch (Exception e)
             {
                 _log.Error("Error in UserController while displaying login page - " + e.Message);
-                return View("Error");
+                return Content("Server didn't respond");
             }
         }
 
@@ -97,7 +97,7 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch (Exception e)
             {
                 _log.Error("Error in UserController while logging in for user : " + credentials.UserName + " - " + e.Message);
-                return View("Error");
+                return Content("Server didn't respond");
             }
         }
         public IActionResult Logout()
@@ -112,28 +112,6 @@ namespace PharmacySupplyManagementPortal.Controllers
             catch (Exception e)
             {
                 _log.Error("Error in UserController while logging out for user : " + HttpContext.Session.GetString("userName") + " - " + e.Message);
-                return View("Error");
-            }
-        }
-
-        public IActionResult Contact()
-        {
-            try
-            {
-                if (HttpContext.Session.GetString("token") == null)
-                {
-                    _log.Info("token not found");
-                    return RedirectToAction("Login");
-                }
-                else
-                {
-                    _log.Info("Showing Contact Details");
-                    return View("Contact");
-                }
-            }
-            catch (Exception e)
-            {
-                _log.Error("Error while showing Contact Page");
                 return View("Error");
             }
         }
