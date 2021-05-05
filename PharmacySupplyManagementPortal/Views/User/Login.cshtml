@@ -47,7 +47,6 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">Login</h3>
-                                   
                                 </div>
                                 <div class="card-body">
                                     <form asp-action="Login" id="loginForm">
@@ -93,6 +92,9 @@
 </html>
 
 <script>
+    $(".form-control").on("change", function () {
+        $(".opResult").text("");
+    })
     $("#loginForm").on("submit", function (e) {
         e.preventDefault();
         var flag = 1;
@@ -122,17 +124,16 @@
                     console.log(data)
                     if (data == "Invalid username/password") {
                         $(".opResult").text("Either Username or Password is Invalid");
-                        $(".opResult").attr("class", "text-danger");
+                        $(".opResult").attr("class", "text-danger opResult");
                     }
                     else if (data == "Server didn't respond") {
                         $(".opResult").text(data);
-                        $(".opResult").attr("class", "text-danger");
+                        $(".opResult").attr("class", "text-danger opResult");
                     }
                     else window.location.href = "User/Index";
                 }
             })
         }
-            
         })
     </script>
 
