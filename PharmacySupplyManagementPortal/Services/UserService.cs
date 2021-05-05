@@ -16,7 +16,7 @@ namespace PharmacySupplyManagementPortal.Services
         {
             try
             {
-                string url = "http://52.143.18.227/api/Authentication";
+                string url = "https://pharmacysupplyauthorization.azurewebsites.net/api/Authentication";
                 var httpClient = new HttpClient();
                 StringContent content = new StringContent(JsonConvert.SerializeObject(credentials), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync(url, content);
